@@ -8,3 +8,4 @@ launch secvoip
 
 Dial pad
     Click A Point    x=100    y=580    duration=100
+    Sleep    5s
