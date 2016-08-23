@@ -13,6 +13,8 @@ ${Click_dialpad_x}    1055    # Test case launch dial pad
 ${Click_dialpad_y}    200    # Test case launch dialpad
 ${Click_back_arrow_x}    99    # Back arrow
 ${Click_back_arrow_y}    182    # Back arrow
+${voip_server_status}    Waiting to connect    # Check if Voip server is connected
+@{VALUES}         Waiting to connect
 
 *** Test Cases ***
 launch secvoip
@@ -25,17 +27,17 @@ Check VOIP server status
     Click Element    name=Configuration
     Click Element    name=Manage Servers
     Sleep    ${sleep_timer}
-    Wait Until Page Contains    Active    timeout=10    error=None
-    ${previous kw}=    Register Keyword To Run On Failure    Nothing
-    Click A Point    ${Click_back_arrow_x}    ${Click_back_arrow_y}    ${Duration_for_click}
-    Sleep    ${sleep_timer}
-    Click A Point    ${Click_back_arrow_x}    ${Click_back_arrow_y}    ${Duration_for_click}
-    Sleep    ${sleep_timer}
-    Click A Point    ${Click_back_arrow_x}    ${Click_back_arrow_y}    ${Duration_for_click}
-    Sleep    ${sleep_timer}
+    Wait Until Page Contains    ${voip_server_status}    timeout=10    error=None
+    :FOR    ${voip_server_status}    IN    @{VALUES}
+    \    Exit For Loop If    '${voip_server_status}'=='Waiting to connect'
+    \    Click A Point    ${Click_back_arrow_x}    ${Click_back_arrow_y}    ${Duration_for_click}
+    \    Sleep    ${sleep_timer}
+    \    Click A Point    ${Click_back_arrow_x}    ${Click_back_arrow_y}    ${Duration_for_click}
+    \    Sleep    ${sleep_timer}
+    \    Click A Point    ${Click_back_arrow_x}    ${Click_back_arrow_y}    ${Duration_for_click}
+    \    Sleep    ${sleep_timer}
 
 launch Dial pad
-    Wait Until Keyword Succeeds
     Click A Point    ${Click_dialpad_x}    ${Click_dialpad_y}    ${Duration_for_click}
     Sleep    ${sleep_timer}
 
