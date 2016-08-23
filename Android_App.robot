@@ -3,8 +3,8 @@ Library           AppiumLibrary
 
 *** Variables ***
 ${sleep_timer}    1s
-${Dial_conf_bridge_first}    id=six    # first number
-${Dial_conf_bridge_second}    id=zero    # second number
+${Dial_conf_bridge_first}    id=two    # first number
+${Dial_conf_bridge_second}    id=three    # second number
 ${Dial_conf_bridge_third}    id=four    # third number
 ${Click_call_x}    853    # x coordinate to click call
 ${Click_call_y}    2220    # y coordinate to click call
@@ -13,7 +13,7 @@ ${Click_dialpad_x}    1055    # Test case launch dial pad
 ${Click_dialpad_y}    200    # Test case launch dialpad
 ${Click_back_arrow_x}    99    # Back arrow
 ${Click_back_arrow_y}    182    # Back arrow
-${voip_server_status}    Waiting to connect    # Check if Voip server is connected
+${voip_server_status}    Active    # Check if Voip server is connected
 @{VALUES}         Waiting to connect
 
 *** Test Cases ***
@@ -28,7 +28,9 @@ Check VOIP server status
     Click Element    name=Manage Servers
     Sleep    ${sleep_timer}
     Wait Until Page Contains    ${voip_server_status}    timeout=10    error=None
-    :FOR    ${voip_server_status}    IN    @{VALUES}
+    ${Contexts}=    Get Contexts
+    ${Current_contexts}=    Get Current Context
+    : FOR    ${VALUE}    IN    @{VALUES}
     \    Exit For Loop If    '${voip_server_status}'=='Waiting to connect'
     \    Click A Point    ${Click_back_arrow_x}    ${Click_back_arrow_y}    ${Duration_for_click}
     \    Sleep    ${sleep_timer}
@@ -44,8 +46,10 @@ launch Dial pad
 Get page contents and dial
     Get Contexts
     Click Element    ${Dial_conf_bridge_first}
-    Click Element    ${Dial_conf_bridge_second}
     Click Element    ${Dial_conf_bridge_third}
+    Click Element    ${Dial_conf_bridge_second}
+    Click Element    ${Dial_conf_bridge_first}
+    Click Element    ${Dial_conf_bridge_first}
     Sleep    ${sleep_timer}
 
 Click call
