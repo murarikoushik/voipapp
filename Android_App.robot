@@ -13,7 +13,7 @@ ${Click_dialpad_x}    1055    # Test case launch dial pad
 ${Click_dialpad_y}    200    # Test case launch dialpad
 ${Click_back_arrow_x}    99    # Back arrow
 ${Click_back_arrow_y}    182    # Back arrow
-${voip_server_status}    Active    # Check if Voip server is connected .
+${voip_server_status}    Active    # Check if Voip server is connected...
 @{VALUES}         Waiting to connect
 
 *** Test Cases ***
